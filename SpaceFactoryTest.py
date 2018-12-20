@@ -1,5 +1,4 @@
 import numpy as np
-import MySpaceFactory as SF
 from MySpaceFactory import MySpaceFactory
 
 L = np.array(range(20))
