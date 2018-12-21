@@ -3,20 +3,25 @@ import math
 from math import *
 
 class Finder:
+
+		history = 31 #количество последних точек не учавствующих в выборке
 		"""Класс ищет ближаййшие варианты в пространстве вариантов, похожие на заданный вариант"""
 		def getDistanses(self, space, array):
 			"""Возвращает массив растояний от нашей точки до всех остальных точек"""
 			norm = self.__normilize(array)
 			distanses = np.array([])
 			i = 0
-			while i < space.shape[0]:
-				data = space [i]
-				deltas = (data - norm) ** 2
-				distanse = sqrt(deltas.sum())
-				
-				distanses = np.append(distanses, distanse)
-				i = i +1
-			return distanses
+			if space.shape[0] > self.history:
+				while i < space.shape[0] - self.history:
+					data = space [i]
+					deltas = (data - norm) ** 2
+					distanse = sqrt(deltas.sum())
+					
+					distanses = np.append(distanses, distanse)
+					i = i +1
+				return distanses
+			else:
+				return distanses
 
 
 		def getSortedSpace(self, space, array):
