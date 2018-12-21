@@ -33,7 +33,10 @@ class Finder:
 			aMax = np.max(array)
 			delta = aMax - aMin
 			b = aMin
-			k = 1/delta
+			if delta != 0:
+				k = 1/delta
+			else:
+				k = 1.0
 			array = (array-b)*k
 			array = np.concatenate([array, [k]])
 			array = np.concatenate([array, [b]])

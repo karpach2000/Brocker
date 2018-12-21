@@ -4,35 +4,36 @@ from numpy import matrix
 class DinamicSpaceFactory():
 	"""Generating  space of variants from grafics"""
 
-	points = 100 #колличество точек в графике / мерность пространства
+	points = 30 #колличество точек в графике / мерность пространства
 	pointsToResultK = 0.3 #отношение шага для прогноза к мерности пространсва
 	maxSpaceSize = 10000
-	space = np.zeros((0, self.points + 2), dtype=float)
-	cordinate = np.zeros( self.points , dtype=float)
+	space = np.zeros((0, points + 2), dtype=float)
+	cordinate = np.zeros( points , dtype=float)
 	cordinateI = 0
-	currentPicture = np.zeros( self.points , dtype=float)
+	currentPicture = np.zeros( points , dtype=float)
 	_currentPictureFulFlag = 0
 
 	def addPoint(self, point):
 		"""Добавить точку"""
-		if cordinateI < points - 1:
-			cordinate[cordinateI] = point
-			cordinateI = cordinateI + 1
-			if _currentPictureFulFlag < 1:
-				currentPicture[cordinateI] = point
-			else:
-				currentPicture = np.append(currentPicture, point)
-				currentPicture   = np.delete(currentPicture , (0), axis=0)
+		if self._currentPictureFulFlag < 1:
+				self.currentPicture[self.cordinateI] = point
+		else:
+				self.currentPicture = np.append(self.currentPicture, point)
+				self.currentPicture   = np.delete(self.currentPicture , (0), axis=0)
 
-		elif:
-			_currentPictureFulFlag = 1
-			cordinate[cordinateI] = point
-			cordinateI = 0
-			line = self.__normilize(cordinate)
-			space = np.concatenate([space, [line]])
+		if self.cordinateI < self.points -1 :
+			self.cordinate[self.cordinateI] = point
+			self.cordinateI = self.cordinateI + 1
 
-		if self.space.shape[1] > maxSpaceSize:
-			space  = np.delete(space , (0), axis=0)
+		else:
+			self._currentPictureFulFlag = 1
+			self.cordinate[self.cordinateI] = point
+			self.cordinateI = 0
+			line = self.__normilize(self.cordinate)
+			self.space = np.concatenate([self.space, [line]])
+
+		if self.space.shape[1] > self.maxSpaceSize:
+			self.space  = np.delete(self.space , (0), axis=0)
 			
 	def getAbsolutePrognoze(self):
 		"""Получает массив прогноззируемых значений графиков -1 если прогноз не возможен"""
@@ -72,7 +73,10 @@ class DinamicSpaceFactory():
 		aMax = np.max(array)
 		delta = aMax - aMin
 		b = aMin
-		k = 1/delta
+		if delta != 0:
+			k = 1/delta
+		else:
+			k = 1.0
 		array = (array-b)*k
 		array = np.concatenate([array, [k]])
 		array = np.concatenate([array, [b]])
