@@ -32,6 +32,10 @@ class DinamicSpaceFactory():
 			line = self.__normilize(self.cordinate)
 			self.space = np.concatenate([self.space, [line]])
 
+		if self._currentPictureFulFlag > 0:
+			line = self.__normilize(self.cordinate)
+			self.space = np.concatenate([self.space, [line]])
+
 		if self.space.shape[1] > self.maxSpaceSize:
 			self.space  = np.delete(self.space , (0), axis=0)
 			
@@ -60,7 +64,7 @@ class DinamicSpaceFactory():
 			endPoint =  i + step 
 			if endPoint < self.space.shape[0]:
 				#print(space[endPoint, 0])
-				prognoze = np.append(prognoze, self.space[endPoint, -3]/self.space[endPoint, -2]+self.space[endPoint, -1] - (self.space[i, -3]/self.space[i, -2] + self.space[i, -1]))
+				prognoze = np.append(prognoze, self.space[endPoint, -3]/self.space[endPoint, -2]+self.space[endPoint, -1] / (self.space[i, -3]/self.space[i, -2] + self.space[i, -1]))
 			else:
 				prognoze = np.append(prognoze, -1)
 			i=i+1
