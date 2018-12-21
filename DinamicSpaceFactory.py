@@ -24,11 +24,12 @@ class DinamicSpaceFactory():
 		if self.cordinateI < self.points -1 :
 			self.cordinate[self.cordinateI] = point
 			self.cordinateI = self.cordinateI + 1
-
 		else:
 			self._currentPictureFulFlag = 1
 			self.cordinate[self.cordinateI] = point
 			self.cordinateI = 0
+
+		if self._currentPictureFulFlag > 0:
 			line = self.__normilize(self.cordinate)
 			self.space = np.concatenate([self.space, [line]])
 
