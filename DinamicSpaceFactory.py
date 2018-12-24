@@ -5,8 +5,8 @@ class DinamicSpaceFactory():
 	"""Generating  space of variants from grafics"""
 
 	points = 30 #колличество точек в графике / мерность пространства
-	pointsToResultK = 0.3 #отношение шага для прогноза к мерности пространсва
-	maxSpaceSize = 10000
+	pointsToResultK = 0.1 #отношение шага для прогноза к мерности пространсва
+	maxSpaceSize = 900000
 	space = np.zeros((0, points + 2), dtype=float)
 	cordinate = np.zeros( points , dtype=float)
 	cordinateI = 0
