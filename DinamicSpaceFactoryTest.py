@@ -63,4 +63,4 @@ while i > -1:
 		print("dspEURUSD.space ", dspEURUSD.space)
 		print("dspEURUSD.currentPicture: ", dspEURUSD.currentPicture)
 	i = i+1
-	time.sleep(3)
+	time.sleep(30)
