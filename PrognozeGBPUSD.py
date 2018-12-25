@@ -51,8 +51,8 @@ while i > -1:
 		print("goods: ",goodsCount, "bads: ", badsCount, "notFounds: ", notFoundCount)
 		prognose = dspGBPUSD.getRelativePrognoze()
 		print("nearest prognose 0:\n",prognose[np.argsort(distanses)[0]], "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[0]]) ) #самый похожий график
-		print("nearest prognose 1:\n",prognose[np.argsort(distanses)[1]] , "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[0]]) )
-		print("nearest prognose 2:\n",prognose[np.argsort(distanses)[2]] , "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[0]]) )
+		print("nearest prognose 1:\n",prognose[np.argsort(distanses)[1]] , "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[1]]) )
+		print("nearest prognose 2:\n",prognose[np.argsort(distanses)[2]] , "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[2]]) )
 		ph = np.append(ph, prognoseA[np.argsort(distanses)[0]] )
 		j = j + 1
 	elif dspGBPUSD.space.size > 0  and distanses.size > 0:

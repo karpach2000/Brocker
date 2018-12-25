@@ -1,17 +1,19 @@
 import numpy as np
 from numpy import matrix
 
-class DinamicSpaceFactory():
+class DinamicSpaceFactory:
 	"""Generating  space of variants from grafics"""
 
-	points = 30 #колличество точек в графике / мерность пространства
-	pointsToResultK = 0.1 #отношение шага для прогноза к мерности пространсва
-	maxSpaceSize = 900000
-	space = np.zeros((0, points + 2), dtype=float)
-	cordinate = np.zeros( points , dtype=float)
-	cordinateI = 0
-	currentPicture = np.zeros( points , dtype=float)
-	_currentPictureFulFlag = 0
+	def __init__(self):
+		self.points = 30 #колличество точек в графике / мерность пространства
+		self.pointsToResultK = 0.1 #отношение шага для прогноза к мерности пространсва
+		self.maxSpaceSize = 900000
+		self.space = np.zeros((0, self.points + 2), dtype=float)
+		self.cordinate = np.zeros( self.points , dtype=float)
+		self.cordinateI = 0
+		self.currentPicture = np.zeros( self.points , dtype=float)
+		self._currentPictureFulFlag = 0
+		self.ph = np.zeros( 0 , dtype=float)
 
 	def addPoint(self, point):
 		"""Добавить точку"""
