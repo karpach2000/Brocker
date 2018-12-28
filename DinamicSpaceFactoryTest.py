@@ -68,7 +68,7 @@ while i > -1:
 		distanses = finder.getDistanses(dsps[k].space, dsps[k].currentPicture) #Расстояния от точек в пространстве вариантов до графика который мы ищем
 
 
-		if dsps[k].space.size > 0 and  dsps[k].space.shape[0] > 3 and distanses.size > 2: #проверяем достаточно ли у меня данных для каких либо выводов
+		if dsps[k].space.size > 0 and  dsps[k].space.shape[0] > 3 and distanses.size > 2 and dsps[k].isCurentPictureLie()!=True: #проверяем достаточно ли у меня данных для каких либо выводов
 			if dsps[k].ph.size > dsps[k].pointsToResultK * dsps[k].points:
 
 				#заполняем форму отчета
@@ -77,19 +77,19 @@ while i > -1:
 				
 				#смотрим сбылся ли прогноз и двигаем счетчики
 				if(dsps[k].ph[distanseToPrognoze] > dsps[k].currentPicture[distanseToPrognoze] and 
-					prices[0].price > dsps[k].currentPicture[distanseToPrognoze]):
+					prices[k].price > dsps[k].currentPicture[distanseToPrognoze]):
 					presents[k].result = "GOOD" 
 					presents[k].goods = presents[k].goods + 1
 				elif(dsps[k].ph[distanseToPrognoze] < dsps[k].currentPicture[distanseToPrognoze] and 
-					prices[0].price < dsps[k].currentPicture[distanseToPrognoze]):
+					prices[k].price < dsps[k].currentPicture[distanseToPrognoze]):
 					presents[k].result = "GOOD" 
 					presents[k].goods = presents[k].goods + 1
 				elif(dsps[k].ph[distanseToPrognoze] < dsps[k].currentPicture[distanseToPrognoze] and 
-					prices[0].price > dsps[k].currentPicture[distanseToPrognoze]):
+					prices[k].price > dsps[k].currentPicture[distanseToPrognoze]):
 					presents[k].result = "BAD" 
 					presents[k].bads = presents[k].bads + 1
 				elif(dsps[k].ph[distanseToPrognoze] > dsps[k].currentPicture[distanseToPrognoze] and 
-					prices[0].price < dsps[k].currentPicture[distanseToPrognoze]):
+					prices[k].price < dsps[k].currentPicture[distanseToPrognoze]):
 					presents[k].result = "BAD" 
 					presents[k].bads = presents[k].bads + 1
 				else:
@@ -107,7 +107,25 @@ while i > -1:
 			#print("nearest prognose 2:\n",prognose[np.argsort(distanses)[2]] , "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[0]]) )
 			dsps[k].ph = np.append(dsps[k].ph, prognoseA[np.argsort(distanses)[0]] )
 			presents[k].printIt()
-			#print(k)
+		elif dsps[k].space.size > 0 and  dsps[k].space.shape[0] > 3 and distanses.size > 2: #проверяем достаточно ли у меня данных для каких либо выводов
+			if dsps[k].ph.size > dsps[k].pointsToResultK * dsps[k].points:
+				#заполняем форму отчета
+				presents[k].prognosed = dsps[k].ph[distanseToPrognoze]
+				presents[k].lastPrice = dsps[k].currentPicture[distanseToPrognoze]
+				presents[k].result = "CANT FIND" 
+				presents[k].nfs = presents[k].nfs + 1
+
+			#Прогнозируем
+			#print(distanses)
+			presents[k].prognose1 = prices[k].price
+			presents[k].prognose2 = prices[k].price
+			presents[k].prognose3 = prices[k].price
+			#print("nearest prognose 0:\n",prognose[np.argsort(distanses)[0]], "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[0]]) ) #самый похожий график
+			#print("nearest prognose 1:\n",prognose[np.argsort(distanses)[1]] , "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[0]]) )
+			#print("nearest prognose 2:\n",prognose[np.argsort(distanses)[2]] , "   ", '{:.3f}'.format(prognoseA[np.argsort(distanses)[0]]) )
+			dsps[k].ph = np.append(dsps[k].ph, prices[k].price)
+			presents[k].printIt()
+			print("Line")
 		elif dsps[k].space.size > 0  and distanses.size > 0:
 			print(presents[k].tipe, ": ", dsps[k].currentPicture) #самый похожий график
 			prognoses = dsps[k].getRelativePrognoze()
@@ -117,7 +135,7 @@ while i > -1:
 		k = k +1
 	i = i+1
 	
-	time.sleep(6)
+	time.sleep(3)
 
 
 

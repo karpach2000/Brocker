@@ -5,7 +5,7 @@ class DinamicSpaceFactory:
 	"""Generating  space of variants from grafics"""
 
 	def __init__(self):
-		self.points = 30 #колличество точек в графике / мерность пространства
+		self.points = 75 #колличество точек в графике / мерность пространства
 		self.pointsToResultK = 0.1 #отношение шага для прогноза к мерности пространсва
 		self.maxSpaceSize = 900000
 		self.space = np.zeros((0, self.points + 2), dtype=float)
@@ -71,6 +71,15 @@ class DinamicSpaceFactory:
 				prognoze = np.append(prognoze, -1)
 			i=i+1
 		return prognoze
+
+	def isCurentPictureLie(self):
+		a = self.currentPicture[0]
+		for cp in self.currentPicture:
+			if a != cp:
+				return False
+			a = cp
+		return True
+
 
 
 	def __normilize(self, array):
